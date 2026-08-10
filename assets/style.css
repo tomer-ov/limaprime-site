@@ -264,11 +264,9 @@ a:focus-visible,button:focus-visible,.card:focus-visible,select:focus-visible,in
 .lead-bar .lb-wa{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;flex:0 0 auto;background:var(--teal);color:#fff;border:0;border-radius:11px;cursor:pointer;transition:background .2s,transform .15s}
 .lead-bar .lb-wa:hover{background:var(--teal-2);transform:translateY(-1px)}
 body.has-lead-bar{padding-block-end:78px}
-body.has-lead-bar .toast{inset-block-end:92px}
 @media(max-width:600px){
  .lead-bar .lb-title{display:none}
  .lead-bar .lb-name{display:none}
  .lead-bar .lb-submit{padding:12px 16px}
  body.has-lead-bar{padding-block-end:74px}
- body.has-lead-bar .toast{inset-block-end:88px}
 }
