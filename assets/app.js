@@ -72,7 +72,6 @@ async function submitLead(e){
 
 var _pp=document.body.getAttribute('data-project');if(_pp)fbTrack('ViewContent',{content_name:_pp});
 
-
 /* ===== floating bottom lead bar ===== */
 async function barSubmit(e){
  e.preventDefault();
@@ -95,14 +94,12 @@ async function barSubmit(e){
 }
 (function(){
  if(document.querySelector('.lead-bar'))return;
- var proj=(document.body.getAttribute('data-project')||'').replace(/'/g,'');
  var bar=document.createElement('div');bar.className='lead-bar';bar.setAttribute('role','region');bar.setAttribute('aria-label','השארת פרטים');
  bar.innerHTML='<form onsubmit="return barSubmit(event)">'
   +'<span class="lb-title">השאירו פרטים</span>'
   +'<input class="lb-name" type="text" placeholder="שם" aria-label="שם" autocomplete="name">'
   +'<input class="lb-phone" type="tel" placeholder="טלפון" aria-label="טלפון" required autocomplete="tel" inputmode="tel">'
   +'<button class="lb-submit" type="submit">שליחת פרטים</button>'
-  +'<button class="lb-wa" type="button" aria-label="שיחה בוואטסאפ" onclick="wa(\''+proj+'\')"><svg viewBox="0 0 24 24" width="20" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z"/></svg></button>'
   +'</form>';
  document.body.appendChild(bar);document.body.classList.add('has-lead-bar');
  var contact=document.getElementById('contact');
