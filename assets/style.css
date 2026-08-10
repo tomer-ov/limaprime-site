@@ -253,8 +253,8 @@ a:focus-visible,button:focus-visible,.card:focus-visible,select:focus-visible,in
 .lead-bar.in{transform:translateY(0)}
 .lead-bar form{max-width:var(--maxw);margin:0 auto;padding:0;display:flex;align-items:center;gap:10px}
 .lead-bar .lb-title{font-weight:800;color:var(--brand);font-size:15px;white-space:nowrap;flex:0 0 auto}
-.lead-bar input{padding:13px 15px;border:1px solid var(--line);border-radius:11px;font:inherit;font-size:15px;background:#fff;color:var(--ink);-webkit-appearance:none;min-width:0;transition:border-color .18s ease,box-shadow .18s ease}
-.lead-bar input::placeholder{color:#9AB0BA}
+.lead-bar input{padding:13px 15px;border:1px solid #9FC3E8;border-radius:11px;font:inherit;font-size:15px;background:#fff;color:var(--ink);text-align:right;-webkit-appearance:none;min-width:0;transition:border-color .18s ease,box-shadow .18s ease}
+.lead-bar input::placeholder{color:#7C96B0}
 .lead-bar input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgb(79 166 216/.18)}
 .lead-bar .lb-name{flex:1.6 1 0}
 .lead-bar .lb-phone{flex:1 1 0}
