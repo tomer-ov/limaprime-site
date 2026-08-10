@@ -257,7 +257,8 @@ a:focus-visible,button:focus-visible,.card:focus-visible,select:focus-visible,in
 .lead-bar input{flex:1;min-width:0;padding:12px 14px;border:1px solid var(--line);border-radius:11px;font:inherit;font-size:15px;background:#fff;color:var(--ink);-webkit-appearance:none}
 .lead-bar input::placeholder{color:#9AB0BA}
 .lead-bar input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgb(79 166 216/.16)}
-.lead-bar .lb-name{max-width:150px}
+.lead-bar .lb-name{flex:1 1 auto}
+.lead-bar .lb-phone{flex:0 0 160px;max-width:160px}
 .lead-bar .lb-submit{background:var(--brand);color:#fff;border:0;padding:12px 22px;border-radius:11px;font-weight:800;font-size:15px;cursor:pointer;white-space:nowrap;transition:transform .15s,box-shadow .2s}
 .lead-bar .lb-submit:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgb(30 58 95/.28)}
 .lead-bar .lb-submit:disabled{opacity:.7;cursor:default}
