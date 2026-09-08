@@ -32,15 +32,45 @@ let pendingWa=null;
 function wa(name){pendingWa=name||null;const m=document.getElementById('waModal');m.classList.add('show');m.setAttribute('aria-hidden','false');setTimeout(()=>{const p=document.getElementById('wa-phone');if(p)p.focus();},60);}
 function waClose(){const m=document.getElementById('waModal');m.classList.remove('show');m.setAttribute('aria-hidden','true');}
 function openChat(){const msg=pendingWa?('היי, אשמח לפרטים על פרויקט '+pendingWa+' בלימסול'):'היי, אשמח לפרטים על דירות בלימסול';window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');}
+/* ===== phone validation (IL-first; international with + allowed) ===== */
+function validPhone(raw){
+ var s=(raw||'').replace(/[​-‏‪-‮﻿]/g,'').trim();
+ var plus=/^\+/.test(s.replace(/\s/g,''));
+ var d=s.replace(/\D/g,'');
+ if(!d) return null;
+ if(!plus){
+  if(/^00\d{6,}$/.test(d)){d=d.slice(2);plus=true;}
+  else if(/^972\d{8,9}$/.test(d)){plus=true;}
+  else if(/^0\d{8,9}$/.test(d)){d='972'+d.slice(1);plus=true;}
+  else if(/^5\d{8}$/.test(d)){d='972'+d;plus=true;}
+  else return null;
+ }
+ if(/^0/.test(d)) return null;
+ if(new Set(d.split('')).size<=2) return null;
+ if(d.indexOf('972')===0){
+  var rest=d.slice(3);
+  if(/^[57]/.test(rest)) { if(rest.length!==9) return null; }
+  else if(/^[2-9]/.test(rest)) { if(rest.length!==8) return null; }
+  else return null;
+ } else if(d.length<9||d.length>15) return null;
+ return '+'+d;
+}
+
 function waSkip(){fbTrack('Contact',{method:'whatsapp'});openChat();waClose();}
 async function waSubmit(e){
  e.preventDefault();
  const name=(document.getElementById('wa-name').value||'').trim();
- const phone=(document.getElementById('wa-phone').value||'').trim();
- const btn=e.target.querySelector('button[type=submit]');btn.disabled=true;
- try{await fetch(CRM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({full_name:name||phone,phone:phone,campaign_name:pendingWa||'',form_name:'וואטסאפ — אתר Lima Prime',source:'whatsapp'})});}catch(_){}
- const eid=genId();fbTrack('Contact',{method:'whatsapp'});fbTrack('Lead',{content_name:pendingWa||'whatsapp'},eid);sendCapi('Lead',eid,{phone:phone,content_name:pendingWa||'whatsapp'});gaEvent('generate_lead',{method:'whatsapp',project:pendingWa||'whatsapp'});
+ const phoneRaw=(document.getElementById('wa-phone').value||'').trim();
+ const phone=validPhone(phoneRaw);
+ const btn=e.target.querySelector('button[type=submit]');
+ if(!phone){toastMsg('מספר הטלפון לא תקין — נסו שוב');return false;}
+ btn.disabled=true;
+ let action='';
+ try{const res=await fetch(CRM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({full_name:name||phone,phone:phone,campaign_name:pendingWa||'',form_name:'וואטסאפ — אתר Lima Prime',source:'whatsapp'})});
+  const data=await res.json().catch(()=>({}));if(res.ok)action=data.action||'';}catch(_){}
+ fbTrack('Contact',{method:'whatsapp'});
+ if(action==='created'){const eid=genId();fbTrack('Lead',{content_name:pendingWa||'whatsapp'},eid);sendCapi('Lead',eid,{phone:phone,content_name:pendingWa||'whatsapp'});gaEvent('generate_lead',{method:'whatsapp',project:pendingWa||'whatsapp'});}
  openChat();btn.disabled=false;e.target.reset();waClose();return false;
 }
 function goContact(){ location.hash=''; setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),60); }
@@ -53,7 +83,8 @@ async function submitLead(e){
  e.preventDefault();
  const f=e.target;
  const name=(document.getElementById('lead-name').value||'').trim();
- const phone=(document.getElementById('lead-phone').value||'').trim();
+ const phone=validPhone((document.getElementById('lead-phone').value||'').trim());
+ if(!phone){toastMsg('מספר הטלפון לא תקין — נסו שוב');return false;}
  const proj=(document.getElementById('lead-proj').value||'').trim();
  const msg=(document.getElementById('lead-msg').value||'').trim();
  const btn=f.querySelector('button[type=submit]');const old=btn.textContent;btn.disabled=true;btn.textContent='שולח…';
@@ -61,7 +92,7 @@ async function submitLead(e){
   const res=await fetch(CRM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
    body:JSON.stringify({full_name:name,phone:phone,campaign_name:proj,form_name:'אתר Lima Prime',source:'website',dynamic_answer:msg||undefined})});
   const data=await res.json().catch(()=>({}));
-  if(res.ok&&data.success!==false){const eid=genId();fbTrack('Lead',{content_name:proj},eid);sendCapi('Lead',eid,{phone:phone,content_name:proj});gaEvent('generate_lead',{method:'form',project:proj});toastMsg('קיבלנו! נחזור אליכם בהקדם 🌊');f.reset();}
+  if(res.ok&&data.success!==false){if(data.action==='created'){const eid=genId();fbTrack('Lead',{content_name:proj},eid);sendCapi('Lead',eid,{phone:phone,content_name:proj});gaEvent('generate_lead',{method:'form',project:proj});}toastMsg('קיבלנו! נחזור אליכם בהקדם 🌊');f.reset();}
   else if((data.error||'').toLowerCase().includes('phone')){toastMsg('מספר הטלפון לא תקין — נסו שוב');}
   else{toastMsg('אירעה שגיאה. נסו שוב או דברו איתנו בוואטסאפ');}
  }catch(err){toastMsg('אין חיבור כרגע — דברו איתנו בוואטסאפ');}
@@ -78,14 +109,15 @@ async function barSubmit(e){
  var f=e.target;
  var nEl=f.querySelector('.lb-name');
  var name=(nEl?nEl.value:'').trim();
- var phone=(f.querySelector('.lb-phone').value||'').trim();
+ var phone=validPhone((f.querySelector('.lb-phone').value||'').trim());
+ if(!phone){toastMsg('מספר הטלפון לא תקין — נסו שוב');return false;}
  var proj=document.body.getAttribute('data-project')||'';
  var btn=f.querySelector('.lb-submit');var old=btn.textContent;btn.disabled=true;btn.textContent='שולח…';
  try{
   var res=await fetch(CRM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
    body:JSON.stringify({full_name:name||phone,phone:phone,campaign_name:proj,form_name:'סרגל תחתון — אתר Lima Prime',source:'website'})});
   var data=await res.json().catch(function(){return {};});
-  if(res.ok&&data.success!==false){var eid=genId();fbTrack('Lead',{content_name:proj||'bottom-bar'},eid);sendCapi('Lead',eid,{phone:phone,content_name:proj||'bottom-bar'});gaEvent('generate_lead',{method:'bottom_bar',project:proj||''});toastMsg('קיבלנו! נחזור אליכם בהקדם 🌊');f.reset();}
+  if(res.ok&&data.success!==false){if(data.action==='created'){var eid=genId();fbTrack('Lead',{content_name:proj||'bottom-bar'},eid);sendCapi('Lead',eid,{phone:phone,content_name:proj||'bottom-bar'});gaEvent('generate_lead',{method:'bottom_bar',project:proj||''});}toastMsg('קיבלנו! נחזור אליכם בהקדם 🌊');f.reset();}
   else if((data.error||'').toLowerCase().indexOf('phone')>-1){toastMsg('מספר הטלפון לא תקין — נסו שוב');}
   else{toastMsg('אירעה שגיאה. נסו שוב או דברו איתנו בוואטסאפ');}
  }catch(err){toastMsg('אין חיבור כרגע — דברו איתנו בוואטסאפ');}
