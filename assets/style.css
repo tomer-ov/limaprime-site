@@ -301,4 +301,4 @@ body.has-lead-bar{padding-block-end:84px}
 .card-specs .spec + .spec{border-inline-start:1px solid var(--line)}
 .card-specs .spec svg{width:15px;height:15px;stroke:color-mix(in srgb,var(--teal) 66%,var(--muted));stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
 
-.card-img img{clip-path:polygon(0 0,100% 0,100% 100%,48% 100%,0 75%)}
+.card-img img{clip-path:url(#cardcut)}
