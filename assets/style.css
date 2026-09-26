@@ -286,8 +286,8 @@ body.has-lead-bar{padding-block-end:84px}
 }
 .card-badge{position:absolute;top:14px;left:14px;right:auto;display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--surface) 93%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--brand-ink);font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;box-shadow:0 4px 12px rgb(20 41 60/.12);z-index:2}
 .card-badge svg{width:13px;height:13px;stroke:var(--teal);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.card-price{position:absolute;bottom:8px;left:16px;background:none;box-shadow:none;padding:0;border-radius:0;display:flex;flex-direction:column;align-items:flex-start;line-height:1.14;z-index:3}
-.card-price span{font-size:11px;color:var(--muted);font-weight:600}
+.card-price{position:absolute;bottom:6px;left:16px;background:none;box-shadow:none;padding:0;border-radius:0;display:flex;flex-direction:column;align-items:flex-start;line-height:1.08;z-index:3}
+.card-price span{font-size:10px;color:var(--muted);font-weight:600;margin-bottom:1px}
 .card-price b{font-size:17px;color:var(--brand-ink);font-weight:800;font-variant-numeric:tabular-nums}
 .card-price--txt{padding:0}
 .card-price--txt b{font-size:14px}
