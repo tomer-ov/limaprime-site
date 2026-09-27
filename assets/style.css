@@ -104,6 +104,7 @@ section{padding:88px 0}
 .card:hover .card-link .arr{transform:translateX(-4px)}
 
 /* map */
+#map{background:var(--lp-bg-warm)}
 #map .map-wrap{display:grid;grid-template-columns:1.55fr 1fr;gap:26px;margin-top:32px;align-items:start}
 .map-svg{width:100%;height:auto;background:var(--surface);border:1px solid var(--line);border-radius:18px;display:block}
 .map-svg .road{fill:none;stroke:var(--line);stroke-width:3}
