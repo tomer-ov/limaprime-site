@@ -92,7 +92,7 @@ async function submitLead(e){
   const res=await fetch(CRM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
    body:JSON.stringify({full_name:name,phone:phone,campaign_name:proj,form_name:'אתר Lima Prime',source:'website',dynamic_answer:msg||undefined})});
   const data=await res.json().catch(()=>({}));
-  if(res.ok&&data.success!==false){if(data.action==='created'){const eid=genId();fbTrack('Lead',{content_name:proj},eid);sendCapi('Lead',eid,{phone:phone,content_name:proj});gaEvent('generate_lead',{method:'form',project:proj});}toastMsg('קיבלנו! נחזור אליכם בהקדם 🌊');f.reset();}
+  if(res.ok&&data.success!==false){if(data.action==='created'){const eid=genId();fbTrack('Lead',{content_name:proj},eid);sendCapi('Lead',eid,{phone:phone,content_name:proj});gaEvent('generate_lead',{method:'form',project:proj});}toastMsg('קיבלנו! נחזור אליכם בהקדם 🌊');f.reset();var _lb=document.querySelector('.lead-bar');if(_lb){_lb.classList.remove('open');document.body.classList.remove('sheet-open');}}
   else if((data.error||'').toLowerCase().includes('phone')){toastMsg('מספר הטלפון לא תקין — נסו שוב');}
   else{toastMsg('אירעה שגיאה. נסו שוב או דברו איתנו בוואטסאפ');}
  }catch(err){toastMsg('אין חיבור כרגע — דברו איתנו בוואטסאפ');}
@@ -127,15 +127,16 @@ async function barSubmit(e){
 (function(){
  if(document.querySelector('.lead-bar'))return;
  var bar=document.createElement('div');bar.className='lead-bar';bar.setAttribute('role','region');bar.setAttribute('aria-label','השארת פרטים');
- bar.innerHTML='<form onsubmit="return barSubmit(event)">'
+ bar.innerHTML='<button type="button" class="lb-trigger" onclick="leadSheetToggle()">השאירו פרטים</button>'+'<form onsubmit="return barSubmit(event)">'
   +'<span class="lb-title">השאירו פרטים</span>'
   +'<input class="lb-name" type="text" placeholder="שם" aria-label="שם" autocomplete="name">'
   +'<input class="lb-phone" type="tel" placeholder="טלפון" aria-label="טלפון" required autocomplete="tel" inputmode="tel">'
   +'<button class="lb-submit" type="submit">שליחת פרטים</button>'
   +'</form>';
- document.body.appendChild(bar);document.body.classList.add('has-lead-bar');
+ var _bd=document.createElement('div');_bd.className='lead-backdrop';_bd.addEventListener('click',leadSheetToggle);document.body.appendChild(_bd);document.body.appendChild(bar);document.body.classList.add('has-lead-bar');
  var contact=document.getElementById('contact');
  if(contact&&'IntersectionObserver'in window){
   new IntersectionObserver(function(es){es.forEach(function(en){var show=!en.isIntersecting;bar.classList.toggle('in',show);document.body.classList.toggle('has-lead-bar',show);});},{threshold:.12}).observe(contact);
  }else{setTimeout(function(){bar.classList.add('in');},500);}
 })();
+function leadSheetToggle(){var b=document.querySelector('.lead-bar');if(!b)return;var op=b.classList.toggle('open');document.body.classList.toggle('sheet-open',op);if(op){var i=b.querySelector('.lb-name');if(i)setTimeout(function(){i.focus();},60);}}
