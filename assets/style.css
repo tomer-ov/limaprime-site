@@ -162,6 +162,7 @@ h4.blk{margin-top:30px;font-size:18px;color:var(--ink)}
 
 /* contact */
 .contact{background:var(--surface-2);border-top:1px solid var(--line)}
+.contact form{background:var(--lp-bg-surface);border:1px solid var(--lp-border);border-radius:24px;padding:39px;box-shadow:0 12px 36px rgb(16 42 67/.08);align-self:start}
 .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;margin-top:30px}
 form{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px}
 .field{margin-bottom:16px}
@@ -169,7 +170,7 @@ form{background:var(--surface);border:1px solid var(--line);border-radius:20px;p
 .field input,.field select,.field textarea{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:11px;background:var(--ground);color:var(--ink);font:inherit;font-size:15px}
 .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--teal);outline-offset:1px;border-color:transparent}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.side-panel{background:linear-gradient(160deg,var(--brand),#16304f);border-radius:20px;padding:32px;color:#eaf2f7;display:flex;flex-direction:column;gap:18px}
+.side-panel{background:var(--brand);border-radius:24px;padding:38px;color:#eaf2f7;display:flex;flex-direction:column;gap:18px}
 .side-panel h3{color:#fff;font-size:24px}
 .side-panel p{color:#c4d4e2;font-size:15px;line-height:1.7}
 .side-panel .phones{display:flex;flex-direction:column;gap:8px}
@@ -183,7 +184,7 @@ form{background:var(--surface);border:1px solid var(--line);border-radius:20px;p
 .side-panel .rep-info{display:flex;flex-direction:column;gap:1px}
 .side-panel .rep-info b{color:#fff;font-size:18px}
 .side-panel .rep-info span{color:#c4d4e2;font-size:13px}
-.side-panel .rep-mail{color:#fff;font-size:14px;text-decoration:underline;direction:ltr;margin-top:3px;width:fit-content}
+.side-panel .rep-mail{color:var(--teal);font-size:14px;text-decoration:underline;direction:ltr;margin-top:3px;width:fit-content}
 .side-panel .rep-mail:hover{color:#dbe7f2}
 .trust-mini{display:flex;gap:8px;flex-wrap:wrap}
 .trust-mini span{font-size:12.5px;background:rgb(255 255 255/.12);padding:5px 11px;border-radius:999px}
