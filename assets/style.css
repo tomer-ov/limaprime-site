@@ -138,9 +138,9 @@ section{padding:88px 0}
 .detail-wrap{padding-top:34px;padding-bottom:20px}
 .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-weight:700;font-size:14.5px;margin-bottom:20px}
 .back:hover{color:var(--teal)}
-.detail-hero{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/6.5}
+.detail-hero{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:16/6.5;box-shadow:0 12px 36px rgb(16 42 67/.10)}
 .detail-hero img{width:100%;height:100%;object-fit:cover}
-.detail-hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgb(10 20 30/.74));display:flex;align-items:flex-end;padding:32px}
+.detail-hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgb(16 42 67/.78));display:flex;align-items:flex-end;padding:36px}
 .detail-hero .ov .eyebrow{color:#cfe6e2}
 .detail-hero .ov h2{color:#fff;font-size:clamp(26px,3.4vw,42px);margin-top:8px}
 .detail-body{display:grid;grid-template-columns:1.5fr .9fr;gap:34px;margin-top:34px}
@@ -150,9 +150,9 @@ h4.blk{margin-top:30px;font-size:18px;color:var(--ink)}
 .feat li{position:relative;padding-inline-start:26px;color:var(--ink);font-size:15.5px}
 .feat li::before{content:"";position:absolute;inset-inline-start:0;top:8px;width:14px;height:9px;border-inline-start:2px solid var(--teal);border-bottom:2px solid var(--teal);transform:rotate(-45deg)}
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
-.gallery img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px}
-.detail-side{align-self:start;position:sticky;top:90px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px}
-.price-tag{font-size:24px;font-weight:800;color:var(--brand-ink)}
+.gallery img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:14px}
+.detail-side{align-self:start;position:sticky;top:90px;background:var(--lp-bg-surface);border:1px solid var(--lp-border);border-radius:24px;padding:28px;box-shadow:0 12px 36px rgb(16 42 67/.08)}
+.price-tag{font-size:26px;font-weight:800;color:var(--brand-ink);letter-spacing:-.01em}
 .spec-rows{margin:16px 0}
 .spec-rows .row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
 .spec-rows .row span{color:var(--muted)} .spec-rows .row b{color:var(--ink)}
