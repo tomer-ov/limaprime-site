@@ -36,9 +36,9 @@ header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(1.4) blur(10px)
 .menu{display:flex;gap:26px;align-items:center}
 .menu a{font-size:15px;color:var(--muted);font-weight:600}
 .menu a:hover{color:var(--ink)}
-.wa{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;padding:10px 16px;border-radius:9px;
+.wa{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;padding:10px 16px;border-radius:9px;
  font-weight:700;font-size:14.5px;border:0;cursor:pointer;box-shadow:0 6px 18px rgb(var(--shadow)/.18);transition:transform .15s,background .2s}
-.wa:hover{background:var(--teal-2);transform:translateY(-1px)}
+.wa:hover{background:#1b4067;transform:translateY(-1px)}
 .wa svg{width:17px;height:17px}
 
 /* pages */
@@ -68,7 +68,7 @@ section{padding:88px 0}
 .sec-head h2{font-size:clamp(26px,3.4vw,40px);color:var(--ink);margin-top:12px}
 .sec-head p{margin-top:16px;color:var(--muted);font-size:17px;line-height:1.75}
 
-.thesis{background:var(--surface-2)}
+.thesis{background:var(--lp-bg-warm)}
 .thesis .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:start;margin-top:8px}
 .thesis .lede{font-size:clamp(19px,2.3vw,25px);line-height:1.55;color:var(--ink);font-weight:600}
 .thesis .lede em{font-style:normal;color:var(--teal);font-weight:800}
